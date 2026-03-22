@@ -42,3 +42,17 @@ def get_index_revenue_timeseries(
         date_to=date_to,
         granularity=granularity,
     )
+ 
+ 
+@mcp.tool
+def get_index_capacity_timeseries(
+    index_id: int,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+):
+    """Get index capacity timeseries."""
+    return services.get_index_capacity_timeseries(
+        index_id=index_id,
+        date_from=date_from,
+        date_to=date_to,
+    )

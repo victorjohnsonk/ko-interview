@@ -34,3 +34,24 @@ def get_index_revenue_timeseries(
         query += f"&granularity={granularity}"
  
     return http_get(f"{path}?{query}")
+ 
+ 
+def get_index_capacity_timeseries(
+    index_id: int,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+):
+    path = f"/indices/{index_id}/capacity/timeseries"
+ 
+    params = []
+    if date_from:
+        params.append(f"date_from={date_from}")
+    if date_to:
+        params.append(f"date_to={date_to}")
+ 
+    query = "&".join(params)
+ 
+    if query:
+        return http_get(f"{path}?{query}")
+ 
+    return http_get(path)
