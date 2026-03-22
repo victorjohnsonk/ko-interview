@@ -2,13 +2,21 @@ from typing import Optional, Literal, Any
 from .client import http_get
  
  
+def _clean_params(params: dict[str, Any]) -> dict[str, Any]:
+    return {k: v for k, v in params.items() if v is not None}
+ 
+ 
 def list_indices(
     market_region: Optional[Literal["gb", "ercot", "nem", "caiso"]] = None,
 ):
-    path = "/indices"
-    if market_region:
-        path += f"?market_region={market_region}"
-    return http_get(path)
+    return http_get(
+        "/indices",
+        _clean_params(
+            {
+                "market_region": market_region,
+            }
+        ),
+    )
  
  
 def get_index_revenue(
@@ -16,9 +24,13 @@ def get_index_revenue(
     date_from: str,
     date_to: str,
 ):
-    path = f"/indices/{index_id}/revenue"
-    path += f"?interval_start={date_from}&interval_end={date_to}"
-    return http_get(path)
+    return http_get(
+        f"/indices/{index_id}/revenue",
+        {
+            "interval_start": date_from,
+            "interval_end": date_to,
+        },
+    )
  
  
 def get_index_revenue_timeseries(
@@ -28,19 +40,17 @@ def get_index_revenue_timeseries(
     granularity: Optional[Literal["base", "daily", "weekly", "monthly"]] = None,
     cursor: Optional[str] = None,
 ):
-    path = f"/indices/{index_id}/revenue/timeseries"
-    params = [
-        f"interval_start={date_from}",
-        f"interval_end={date_to}",
-    ]
- 
-    if granularity:
-        params.append(f"granularity={granularity}")
-    if cursor:
-        params.append(f"cursor={cursor}")
- 
-    query = "&".join(params)
-    return http_get(f"{path}?{query}")
+    return http_get(
+        f"/indices/{index_id}/revenue/timeseries",
+        _clean_params(
+            {
+                "interval_start": date_from,
+                "interval_end": date_to,
+                "granularity": granularity,
+                "cursor": cursor,
+            }
+        ),
+    )
  
  
 def get_index_capacity_timeseries(
@@ -49,22 +59,16 @@ def get_index_capacity_timeseries(
     date_to: Optional[str] = None,
     cursor: Optional[str] = None,
 ):
-    path = f"/indices/{index_id}/capacity/timeseries"
- 
-    params = []
-    if date_from:
-        params.append(f"date_from={date_from}")
-    if date_to:
-        params.append(f"date_to={date_to}")
-    if cursor:
-        params.append(f"cursor={cursor}")
- 
-    query = "&".join(params)
- 
-    if query:
-        return http_get(f"{path}?{query}")
- 
-    return http_get(path)
+    return http_get(
+        f"/indices/{index_id}/capacity/timeseries",
+        _clean_params(
+            {
+                "date_from": date_from,
+                "date_to": date_to,
+                "cursor": cursor,
+            }
+        ),
+    )
  
  
 def get_all_index_revenue_timeseries_pages(
