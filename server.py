@@ -24,11 +24,6 @@ def list_indices(
         path += f"?market_region={market_region}"
     return http_get(path)
 
-@mcp.tool
-def get_index(index_id: int):
-    """Get index by id."""
-    return http_get(f"/indices/{index_id}")
-
 def main():
     mcp.run(transport="http", host="0.0.0.0", port=8005)
 
