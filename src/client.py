@@ -7,9 +7,7 @@ import urllib.parse
 import urllib.request
 from typing import Any, Optional
  
-BASE_URL = "https://api.modoenergy.com/pub/v1"
-DEFAULT_TIMEOUT = 30
-USER_AGENT = "modo-indices-fastmcp/1.0"
+from .config import BASE_URL, DEFAULT_TIMEOUT, USER_AGENT
  
  
 class ModoAPIError(Exception):
