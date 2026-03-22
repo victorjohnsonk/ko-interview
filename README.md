@@ -109,7 +109,7 @@ The following **Indices** endpoints are free to use, i.e. no API key or authenti
 | Endpoint | Description |
 |----------|-------------|
 | `GET /indices/` | List all available indices. Filter by `market_region` (gb, ercot, nem, caiso) and `is_custom` (true/false). |
-| `GET /indices/{id}/` | Get details of a single index, including its definition (asset filters, region, etc). THIS ENDPOINT RETURNED 404 AND IS EXLCUDED FROM TOOLS. |
+| `GET /indices/{id}/` | Get details of a single index, including its definition (asset filters, region, etc). THIS ENDPOINT RETURNED 404 AND IS EXCLUDED FROM TOOLS. |
 | `GET /indices/{id}/revenue/` | Aggregated revenue for an index over a date range. Supports `capacity_normalisation` (mw, mwh), `time_basis` (hour, year), `breakdown` (market), and `markets` filtering. |
 | `GET /indices/{id}/revenue/timeseries/` | Revenue as a time series. Adds `granularity` (base, daily, weekly, monthly). Cursor-paginated. |
 | `GET /indices/{id}/capacity/timeseries/` | MW and MWh capacity over time. Filter by `date_from` / `date_to`. Cursor-paginated. |
