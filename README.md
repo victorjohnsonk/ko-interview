@@ -75,6 +75,16 @@ To accelerate development, I used ChatGPT (GPT-5.3) for:
  
 Overall, the task was completed in under two hours, with a focus on clarity, extensibility, and pragmatic engineering trade-offs.
 
+| Category | Example Queries |
+|----------|----------------|
+| **Discovery** | What indices are available in Great Britain?<br>Show me all non-custom indices in ERCOT.<br>Which battery indices exist in CAISO?<br>List all indices across all regions.<br>What indices can I analyse in NEM? |
+| **Index Inspection** | What does the GB battery index include?<br>How is the ERCOT battery index defined?<br>What assets are included in this index?<br>Give me details of the CAISO battery index.<br>What filters are used in this index? |
+| **Aggregated Revenue** | What was total revenue for the GB battery index last year?<br>Compare total revenues across all indices in 2025.<br>How much revenue did this index generate in Q1 2024?<br>Break down revenue by market for this index in 2024.<br>Which markets contributed most to revenue in 2025? |
+| **Revenue Timeseries** | How has revenue evolved over time for the GB battery index?<br>Show weekly revenue trends for ERCOT batteries.<br>What are the daily revenues for this index in January 2025?<br>Plot monthly revenue trends for 2024.<br>How volatile is revenue over time? |
+| **Full Dataset / Pagination** | Give me the full revenue history for this index.<br>Download all revenue data for 2023–2025.<br>Analyse long-term revenue trends since 2022.<br>Show the complete monthly revenue history.<br>Compare yearly trends across multiple years. |
+| **Capacity Timeseries** | How has battery capacity grown in ERCOT over the past year?<br>What is the capacity trend for GB battery assets?<br>Show installed capacity over time for this index.<br>How much capacity was added in 2024?<br>Compare capacity growth across regions. |
+| **Advanced Analytics** | Which index performed the best in 2024?<br>Compare monthly revenues in Q1 2025.<br>How has battery capacity growth in ERCOT impacted revenues?<br>Which index generated the most revenue and from which markets?<br>Analyse revenue and capacity trends for GB batteries over the last 2 years.<br>Which index has the most volatile revenue profile?<br>Which index generates the most revenue per MW? |
+
 ## Background: Modo Indices
 
 Modo Energy tracks the performance of battery energy storage systems (BESS) across multiple markets. A **Modo Index** represents a benchmark portfolio of battery assets in a given region. Think of it like a stock market index, but for batteries.
