@@ -1,29 +1,39 @@
-"""
-Modo Energy MCP Server
-
-An MCP server that exposes the Modo Energy public API — specifically the
-Indices endpoints — as tools that can be called by LLMs via Claude Code
-or any MCP-compatible client.
-
-See README.md for the full task brief.
-"""
-
+import json
+import urllib.request
+from typing import Optional, Literal
+ 
 from fastmcp import FastMCP
-
+ 
 mcp = FastMCP("Modo Energy")
-
+ 
 BASE_URL = "https://api.modoenergy.com/pub/v1"
-
-
+ 
+ 
+def http_get(path: str) -> dict:
+    url = f"{BASE_URL}{path}/"
+    req = urllib.request.Request(
+        url,
+        headers={"Accept": "application/json"},
+    )
+ 
+    with urllib.request.urlopen(req) as res:
+        return json.loads(res.read().decode("utf-8"))
+ 
+ 
 @mcp.tool
-def hello() -> str:
-    """Say hello — replace this with your own tools."""
-    return "Hello from Modo Energy! Good luck on the assessment!"
-
-
+def list_indices(
+    market_region: Optional[Literal["gb", "ercot", "nem", "caiso"]] = None,
+):
+    """List indices."""
+    path = "/indices"
+    if market_region:
+        path += f"?market_region={market_region}"
+    return http_get(path)
+ 
+ 
 def main():
-    mcp.run()
-
-
+    mcp.run(transport="http", host="0.0.0.0", port=8005)
+ 
+ 
 if __name__ == "__main__":
     main()
