@@ -1,4 +1,4 @@
-from typing import Optional, Literal
+from typing import Optional, Literal, Any
 from .client import http_get
  
  
@@ -26,13 +26,20 @@ def get_index_revenue_timeseries(
     date_from: str,
     date_to: str,
     granularity: Optional[Literal["base", "daily", "weekly", "monthly"]] = None,
+    cursor: Optional[str] = None,
 ):
     path = f"/indices/{index_id}/revenue/timeseries"
-    query = f"interval_start={date_from}&interval_end={date_to}"
+    params = [
+        f"interval_start={date_from}",
+        f"interval_end={date_to}",
+    ]
  
     if granularity:
-        query += f"&granularity={granularity}"
+        params.append(f"granularity={granularity}")
+    if cursor:
+        params.append(f"cursor={cursor}")
  
+    query = "&".join(params)
     return http_get(f"{path}?{query}")
  
  
@@ -55,3 +62,36 @@ def get_index_capacity_timeseries(
         return http_get(f"{path}?{query}")
  
     return http_get(path)
+ 
+ 
+def get_all_index_revenue_timeseries_pages(
+    index_id: int,
+    date_from: str,
+    date_to: str,
+    granularity: Optional[Literal["base", "daily", "weekly", "monthly"]] = None,
+    max_pages: int = 10,
+) -> dict[str, Any]:
+    all_results: list[Any] = []
+    cursor: Optional[str] = None
+ 
+    for _ in range(max_pages):
+        page = get_index_revenue_timeseries(
+            index_id=index_id,
+            date_from=date_from,
+            date_to=date_to,
+            granularity=granularity,
+            cursor=cursor,
+        )
+ 
+        results = page.get("results", [])
+        if isinstance(results, list):
+            all_results.extend(results)
+ 
+        cursor = page.get("next_cursor")
+        if not cursor:
+            break
+ 
+    return {
+        "results_count": len(all_results),
+        "results": all_results,
+    }
