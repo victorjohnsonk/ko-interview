@@ -26,3 +26,19 @@ def get_index_revenue(
         date_from=date_from,
         date_to=date_to,
     )
+ 
+ 
+@mcp.tool
+def get_index_revenue_timeseries(
+    index_id: int,
+    date_from: str,
+    date_to: str,
+    granularity: Optional[Literal["base", "daily", "weekly", "monthly"]] = None,
+):
+    """Get index revenue timeseries."""
+    return services.get_index_revenue_timeseries(
+        index_id=index_id,
+        date_from=date_from,
+        date_to=date_to,
+        granularity=granularity,
+    )
