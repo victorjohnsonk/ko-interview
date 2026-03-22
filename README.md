@@ -66,8 +66,8 @@ Some areas (e.g. stricter schema validation, retries, and richer error mapping) 
  
 ### Use of AI Tools
  
-To accelerate development, I used ChatGPT (GPT-5.3) for:
- 
+To accelerate development, I used ChatGPT (GPT-5.3, Pro Subscription) for:
+
 - Generating input/output validation schemas from API documentation  
 - Writing and refining MCP tool docstrings  
 - Creating example test queries  
