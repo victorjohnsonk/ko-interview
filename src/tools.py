@@ -12,3 +12,17 @@ def list_indices(
 ):
     """List indices."""
     return services.list_indices(market_region=market_region)
+ 
+ 
+@mcp.tool
+def get_index_revenue(
+    index_id: int,
+    date_from: str,
+    date_to: str,
+):
+    """Get index revenue."""
+    return services.get_index_revenue(
+        index_id=index_id,
+        date_from=date_from,
+        date_to=date_to,
+    )

@@ -9,3 +9,13 @@ def list_indices(
     if market_region:
         path += f"?market_region={market_region}"
     return http_get(path)
+ 
+ 
+def get_index_revenue(
+    index_id: int,
+    date_from: str,
+    date_to: str,
+):
+    path = f"/indices/{index_id}/revenue"
+    path += f"?interval_start={date_from}&interval_end={date_to}"
+    return http_get(path)
