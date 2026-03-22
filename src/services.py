@@ -47,6 +47,7 @@ def get_index_capacity_timeseries(
     index_id: int,
     date_from: Optional[str] = None,
     date_to: Optional[str] = None,
+    cursor: Optional[str] = None,
 ):
     path = f"/indices/{index_id}/capacity/timeseries"
  
@@ -55,6 +56,8 @@ def get_index_capacity_timeseries(
         params.append(f"date_from={date_from}")
     if date_to:
         params.append(f"date_to={date_to}")
+    if cursor:
+        params.append(f"cursor={cursor}")
  
     query = "&".join(params)
  
@@ -80,6 +83,37 @@ def get_all_index_revenue_timeseries_pages(
             date_from=date_from,
             date_to=date_to,
             granularity=granularity,
+            cursor=cursor,
+        )
+ 
+        results = page.get("results", [])
+        if isinstance(results, list):
+            all_results.extend(results)
+ 
+        cursor = page.get("next_cursor")
+        if not cursor:
+            break
+ 
+    return {
+        "results_count": len(all_results),
+        "results": all_results,
+    }
+ 
+ 
+def get_all_index_capacity_timeseries_pages(
+    index_id: int,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    max_pages: int = 10,
+) -> dict[str, Any]:
+    all_results: list[Any] = []
+    cursor: Optional[str] = None
+ 
+    for _ in range(max_pages):
+        page = get_index_capacity_timeseries(
+            index_id=index_id,
+            date_from=date_from,
+            date_to=date_to,
             cursor=cursor,
         )
  

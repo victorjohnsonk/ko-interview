@@ -74,3 +74,19 @@ def get_all_index_revenue_timeseries_pages(
         granularity=granularity,
         max_pages=max_pages,
     )
+ 
+ 
+@mcp.tool
+def get_all_index_capacity_timeseries_pages(
+    index_id: int,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    max_pages: int = 10,
+):
+    """Get all capacity timeseries pages."""
+    return services.get_all_index_capacity_timeseries_pages(
+        index_id=index_id,
+        date_from=date_from,
+        date_to=date_to,
+        max_pages=max_pages,
+    )
