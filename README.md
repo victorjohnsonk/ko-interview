@@ -71,7 +71,7 @@ uv run main.py
 **Claude Code:**
 
 ```bash
-claude mcp add ko-victor-test -- uv run main.py
+claude mcp add modo-mcp -- uv run main.py
 ```
 
 **Cursor:** Add to your `.cursor/mcp.json`:
@@ -79,7 +79,7 @@ claude mcp add ko-victor-test -- uv run main.py
 ```json
 {
   "mcpServers": {
-    "ko-victor-test": {
+    "modo-mcp": {
       "command": "uv",
       "args": ["run", "main.py"],
       "cwd": "/path/to/ko-interview"
