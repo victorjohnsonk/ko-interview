@@ -71,6 +71,7 @@ To accelerate development, I used ChatGPT (GPT-5.3) for:
 - Generating input/output validation schemas from API documentation  
 - Writing and refining MCP tool docstrings  
 - Creating example test queries  
+- Test MCP endpoint (exposed visa ngroka and transport set to http)
 - Enhancing and refining this README for clarity and structure  
  
 Overall, the task was completed in under two hours, with a focus on clarity, extensibility, and pragmatic engineering trade-offs.
